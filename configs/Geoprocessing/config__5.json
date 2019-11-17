@@ -1,0 +1,165 @@
+{
+  "name": "Watershed",
+  "displayName": "Watershed",
+  "description": "Watershed determines the contributing area above each input point. A watershed is the upslope area that contributes flow.",
+  "category": "",
+  "helpUrl": "https://ec2-54-85-144-227.compute-1.amazonaws.com:6443/arcgis/rest/directories/arcgisoutput/Tools/Hydrology_GPServer/Tools_Hydrology/Watershed.htm",
+  "_ssl": true,
+  "serverInfo": {
+    "currentVersion": 10.51,
+    "url": "https://hydro.arcgis.com/arcgis/rest/services/Tools/Hydrology/GPServer/",
+    "hasResultMapServer": false,
+    "resultMapServerName": "",
+    "supportsUpload": false
+  },
+  "useResultMapServer": false,
+  "taskUrl": "https://hydro.arcgis.com/arcgis/rest/services/Tools/Hydrology/GPServer/Watershed",
+  "isSynchronous": false,
+  "inputParams": [
+    {
+      "name": "InputPoints",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "The point features used for calculating watersheds. These are referred to as pour points, because it is the location at which water pours out of the watershed.",
+      "defaultValue": {
+        "displayFieldName": "",
+        "geometryType": "esriGeometryPoint",
+        "spatialReference": {
+          "wkid": 102100,
+          "latestWkid": 3857
+        },
+        "fields": [
+          {
+            "name": "OID",
+            "type": "esriFieldTypeOID",
+            "alias": "OID"
+          },
+          {
+            "name": "Name",
+            "type": "esriFieldTypeString",
+            "alias": "Name",
+            "length": 60
+          }
+        ],
+        "features": [],
+        "exceededTransferLimit": false
+      },
+      "category": "",
+      "label": "Input Points",
+      "visible": true,
+      "required": true,
+      "featureSetMode": "layers",
+      "tooltip": "Input Points"
+    },
+    {
+      "name": "PointIDField",
+      "dataType": "GPString",
+      "description": "The field used to identify to the input points.It can be an integer or string field. The default is to use the unique ID field.",
+      "defaultValue": null,
+      "category": "",
+      "label": "Point Identification Field",
+      "visible": true,
+      "required": false,
+      "tooltip": "Point Identification Field"
+    },
+    {
+      "name": "SnapDistance",
+      "dataType": "GPString",
+      "description": "The maximum distance to move the location of an input point.Interactive input points and documented gage locations may not exactly align with the stream location in the DEM. This parameter allows the service to move the point to a nearby location with the largest contributing area.By default, the snapping distance is calculated as the resolution of the source data multiplied by 5.",
+      "defaultValue": null,
+      "category": "",
+      "label": "Snap Distance",
+      "visible": true,
+      "required": false,
+      "tooltip": "Snap Distance"
+    },
+    {
+      "name": "SnapDistanceUnits",
+      "dataType": "GPString",
+      "description": "The linear units specified for the snap distance.Values: Meters: The units are meters. This is the default.Kilometers: The units are kilometers.Feet: The units are feet.Yards: The units are yards.Miles: The units are miles.",
+      "defaultValue": "Meters",
+      "category": "",
+      "choiceList": [
+        "Meters",
+        "Kilometers",
+        "Feet",
+        "Yards",
+        "Miles"
+      ],
+      "label": "Snap Distance Units",
+      "visible": true,
+      "required": false,
+      "tooltip": "Snap Distance Units"
+    },
+    {
+      "name": "DataSourceResolution",
+      "dataType": "GPString",
+      "description": "Keyword indicating the source data that will be used in the analysis. The keyword is an approximation of the spatial resolution of the digital elevation model used to build the foundation hydrologic database. Since many elevation sources are distributed with units of arc seconds, we provide an approximation in meters for easier understanding.Blank - The hydrologic source was built from 3 arc second, approximately 90 meter resolution elevation data. This is the default.FINEST- Finest resolution available at each location from all possible data sources.10m - The hydrologic source was built from 1/3 arc-second, approximately 10 meter resolution elevation data.30m - The hydrologic source was built from 1 arc second, approximately 30 meter resolution elevation data.90m - The hydrologic source was built from 3 arc second, approximately 90 meter resolution elevation data.",
+      "defaultValue": null,
+      "category": "",
+      "choiceList": [
+        " ",
+        "FINEST",
+        "10m",
+        "30m",
+        "90m"
+      ],
+      "label": "Data Source Resolution",
+      "visible": true,
+      "required": false,
+      "tooltip": "Data Source Resolution"
+    },
+    {
+      "name": "Generalize",
+      "dataType": "GPBoolean",
+      "description": "Determines if the output watersheds will be smoothed into simpler shapes or conform to the cell edges of the original DEM.Unchecked—The edge of the polygons will conform to the cell edges of the original DEM. This is the default.Checked—The polygon boundaries will be smoothed into simpler shapes.",
+      "defaultValue": false,
+      "category": "",
+      "label": "Generalize Watershed Polygons",
+      "visible": true,
+      "required": false,
+      "tooltip": "Generalize Watershed Polygons"
+    },
+    {
+      "name": "ReturnSnappedPoints",
+      "dataType": "GPBoolean",
+      "description": "Determines if a point feature at the watershed’s pour point will be returned. If snapping is enabled, this might not be the same as the input point.Unchecked—No point features will be returned.Checked—A point feature will be returned.This is the default.",
+      "defaultValue": true,
+      "category": "",
+      "label": "Return Snapped Points",
+      "visible": true,
+      "required": false,
+      "tooltip": "Return Snapped Points"
+    }
+  ],
+  "outputParams": [
+    {
+      "name": "WatershedArea",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "",
+      "defaultValue": {},
+      "category": "",
+      "label": "Output Watershed",
+      "visible": true,
+      "required": false,
+      "featureSetMode": "layers"
+    },
+    {
+      "name": "SnappedPoints",
+      "dataType": "GPFeatureRecordSetLayer",
+      "description": "",
+      "defaultValue": {},
+      "category": "",
+      "label": "Output Snapped Points",
+      "visible": true,
+      "required": false,
+      "featureSetMode": "layers"
+    }
+  ],
+  "shareResults": false,
+  "layerOrder": [
+    "WatershedArea",
+    "SnappedPoints",
+    "InputPoints"
+  ],
+  "showExportButton": false
+}
